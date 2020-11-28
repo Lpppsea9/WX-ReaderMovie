@@ -1,0 +1,22 @@
+<import src="posts-item/post-item-template.wxml" />
+
+<view>
+  <swiper vertical="{{false}}" indicator-dots="true" interval="5000" autoplay="{{true}}">
+    <swiper-item>
+      <image src="/images/wx.png"></image>
+    </swiper-item>
+    <swiper-item>
+      <image src="/images/vr.png"></image>
+    </swiper-item>
+    <swiper-item>
+      <image src="/images/iqiyi.png"></image>
+    </swiper-item>
+  </swiper>
+<!-- template模板 -->
+<block wx:key="1" wx:for="{{posts_key}}" wx:for-item="item" wx:for-index="idx">
+  <template is="postItem" data="{{item}}" />
+</block>
+<!-- Component -->
+<!-- 组件化编程 -->
+
+</view>
