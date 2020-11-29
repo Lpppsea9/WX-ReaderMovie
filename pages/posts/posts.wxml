@@ -14,7 +14,9 @@
   </swiper>
 <!-- template模板 -->
 <block wx:key="1" wx:for="{{posts_key}}" wx:for-item="item" wx:for-index="idx">
-  <template is="postItem" data="{{item}}" />
+  <view bind:tap="onpostTap" data-postId="{{item.postId}}">
+    <template is="postItem" data="{{...item}}" />
+  </view>
 </block>
 <!-- Component -->
 <!-- 组件化编程 -->

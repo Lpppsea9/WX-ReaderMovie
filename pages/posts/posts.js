@@ -17,11 +17,16 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-
-
+  onLoad(options) {  //es6的写法
     this.setData({
       posts_key: postsData.postList
     }) //ES6
   },
+  onpostTap:function(event){
+    // console.log(event) //打印出点击的事件对象
+    let postId = event.currentTarget.dataset.postid; //找到每个文章的postid，非常重要
+    wx.navigateTo({
+      url: '../posts/post-detail/post-detail',
+    })
+  }
 })
