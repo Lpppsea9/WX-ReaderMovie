@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    collected: false
   },
 
   /**
@@ -15,30 +15,42 @@ Page({
   onLoad: function (options) {
     let postId = options.id; // url ?之后的参数
     let postData = postsData.postList[postId];
+    this.data.currentPostId = postId //把postId值传到data中
     this.setData({postData});
-
-    wx.setStorageSync('CF', {
-      developer:'smile gate',
-      games:'穿越火线'
-    })
-    wx.setStorageSync('lol', {
-      developer:'拳头公司',
-      games:'英雄联盟'
-    })
+    var postsCollected = wx.getStorageSync('postsCollected');
+    if(postsCollected) {
+      let collected = postsCollected[postId];
+      if(collected){
+        this.setData({
+          collected:postsCollected[postId]
+        })
+      }
+    }else{
+      var postsCollected = {};
+      postsCollected[postId] = false;
+      wx.setStorageSync('postsCollected', postsCollected)
+    }
   },
   
   oncollectionTap:function(){
-    let cfstorage = wx.getStorageSync('CF');
-    let lolstorage = wx.getStorageSync('lol');
-    console.log(cfstorage)
-    console.log(lolstorage)
+    var postsCollected = wx.getStorageSync('postsCollected');
+    var collected = postsCollected[this.data.currentPostId];
+    collected = !collected;
+    postsCollected[this.data.currentPostId] = collected;
+    wx.setStorageSync('postsCollected', postsCollected);
+    this.setData({collected});
 
+    wx.showToast({
+      title: collected ? '收藏成功' : '取消成功',
+      duration: 1000,
+      icon:'success'
+    })
   },
 
   onshareTap: function() {
     // wx.removeStorageSync('CF');  //10MB 1MB 带sync的是同步操作
     // wx.removeStorageSync('lol');
-    wx.clearStorageSync()
+    // wx.clearStorageSync()
   },
   
 
