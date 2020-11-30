@@ -16,29 +16,24 @@ Page({
     let postId = options.id; // url ?之后的参数
     let postData = postsData.postList[postId];
     this.data.currentPostId = postId //把postId值传到data中
-    this.setData({postData});
+    this.setData({ postData });
     var postsCollected = wx.getStorageSync('postsCollected');
-    if(postsCollected) {
+    if (postsCollected) {
       let collected = postsCollected[postId];
-      if(collected){
+      if (collected) {
         this.setData({
-          collected:postsCollected[postId]
+          collected: postsCollected[postId]
         })
       }
-    }else{
+    } else {
       var postsCollected = {};
       postsCollected[postId] = false;
       wx.setStorageSync('postsCollected', postsCollected)
     }
   },
-  
-  oncollectionTap:function(){
-    var postsCollected = wx.getStorageSync('postsCollected');
-    var collected = postsCollected[this.data.currentPostId];
-    collected = !collected;
-    postsCollected[this.data.currentPostId] = collected;
-    wx.setStorageSync('postsCollected', postsCollected);
-    this.setData({collected});
+
+  oncollectionTap: function () {
+
 
     // wx.showToast({
     //   title: collected ? '收藏成功' : '取消成功',
@@ -52,22 +47,27 @@ Page({
       confirmText: '收藏',
       cancelText: '不收藏',
       cancelColor: 'cancelColor',
-      success: function(res) {
-        if(res.confirm) {
-          console.log('收藏成功')
-        }else if(res.cancel) {
+      success: function (res) {
+        if (res.confirm) {
+          var postsCollected = wx.getStorageSync('postsCollected');
+          var collected = postsCollected[this.data.currentPostId];
+          collected = !collected;
+          postsCollected[this.data.currentPostId] = collected;
+          wx.setStorageSync('postsCollected', postsCollected);
+          this.setData({collected});
+        } else if (res.cancel) {
           console.log('取消成功')
         }
       }
     })
   },
 
-  onshareTap: function() {
+  onshareTap: function () {
     // wx.removeStorageSync('CF');  //10MB 1MB 带sync的是同步操作
     // wx.removeStorageSync('lol');
     // wx.clearStorageSync()
   },
-  
+
 
   /**
    * 生命周期函数--监听页面初次渲染完成
