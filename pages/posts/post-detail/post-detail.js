@@ -40,10 +40,25 @@ Page({
     wx.setStorageSync('postsCollected', postsCollected);
     this.setData({collected});
 
-    wx.showToast({
-      title: collected ? '收藏成功' : '取消成功',
-      duration: 1000,
-      icon:'success'
+    // wx.showToast({
+    //   title: collected ? '收藏成功' : '取消成功',
+    //   duration: 1000,
+    //   icon:'success'
+    // })
+
+    wx.showModal({
+      title: '收藏',
+      content: '是否收藏',
+      confirmText: '收藏',
+      cancelText: '不收藏',
+      cancelColor: 'cancelColor',
+      success: function(res) {
+        if(res.confirm) {
+          console.log('收藏成功')
+        }else if(res.cancel) {
+          console.log('取消成功')
+        }
+      }
     })
   },
 
