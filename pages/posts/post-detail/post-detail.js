@@ -40,21 +40,21 @@ Page({
     //   duration: 1000,
     //   icon:'success'
     // })
-
+    var that = this; 
     wx.showModal({
       title: '收藏',
       content: '是否收藏',
       confirmText: '收藏',
       cancelText: '不收藏',
       cancelColor: 'cancelColor',
-      success: function (res) {
+      success: function(res) {
         if (res.confirm) {
           var postsCollected = wx.getStorageSync('postsCollected');
-          var collected = postsCollected[this.data.currentPostId];
+          var collected = postsCollected[that.data.currentPostId];
           collected = !collected;
-          postsCollected[this.data.currentPostId] = collected;
+          postsCollected[that.data.currentPostId] = collected;
           wx.setStorageSync('postsCollected', postsCollected);
-          this.setData({collected});
+          that.setData({collected});
         } else if (res.cancel) {
           console.log('取消成功')
         }
