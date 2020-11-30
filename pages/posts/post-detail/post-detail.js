@@ -15,8 +15,32 @@ Page({
   onLoad: function (options) {
     let postId = options.id; // url ?之后的参数
     let postData = postsData.postList[postId];
-    this.setData({postData})
+    this.setData({postData});
+
+    wx.setStorageSync('CF', {
+      developer:'smile gate',
+      games:'穿越火线'
+    })
+    wx.setStorageSync('lol', {
+      developer:'拳头公司',
+      games:'英雄联盟'
+    })
   },
+  
+  oncollectionTap:function(){
+    let cfstorage = wx.getStorageSync('CF');
+    let lolstorage = wx.getStorageSync('lol');
+    console.log(cfstorage)
+    console.log(lolstorage)
+
+  },
+
+  onshareTap: function() {
+    // wx.removeStorageSync('CF');  //10MB 1MB 带sync的是同步操作
+    // wx.removeStorageSync('lol');
+    wx.clearStorageSync()
+  },
+  
 
   /**
    * 生命周期函数--监听页面初次渲染完成
