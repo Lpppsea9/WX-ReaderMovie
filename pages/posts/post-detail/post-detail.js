@@ -13,8 +13,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var postId = options.id;
-    var postData = postsData.postList[postId];
+    let postId = options.id; // url ?之后的参数
+    let postData = postsData.postList[postId];
     this.setData({postData})
   },
 
