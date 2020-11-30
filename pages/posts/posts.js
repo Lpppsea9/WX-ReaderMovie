@@ -25,6 +25,7 @@ Page({
   onpostTap:function(event){
     // console.log(event) //打印出点击的事件对象
     let postId = event.currentTarget.dataset.postid; //找到每个文章的postid，非常重要
+    console.log(1)
     wx.navigateTo({
       url: '../posts/post-detail/post-detail',
     })
